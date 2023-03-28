@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import gsap from "gsap";
 import { Link as LinkS } from "react-scroll";
 
+import { motion } from "framer-motion";
+
 const Navbar = () => {
   const [nav, setNav] = useState(false);
   const handleClick = () => setNav(!nav);
+  const [isOpen, setIsOpen] = useState(false);
 
   const fadeIn = (element) => {
     gsap.from(element, {
@@ -20,6 +23,19 @@ const Navbar = () => {
   useEffect(() => {
     fadeIn("#fadeIn");
   }, []);
+
+  const menuVariants = {
+    opened: {
+      top: 0,
+      opacity: 1,
+      scale:1,
+    },
+    closed: {
+      top: "-105vh",
+      opacity: 0,
+      scale:0,
+    },
+  };
 
   return (
     <div
@@ -98,7 +114,7 @@ const Navbar = () => {
 
         <div
           className="lg:hidden bg-[#b88339] border-[#774e17] border-2 p-1 rounded-md"
-          onClick={handleClick}
+          onClick={() => setIsOpen((state) => !state) || handleClick()}
         >
           {!nav ? (
             <svg
@@ -131,83 +147,84 @@ const Navbar = () => {
           )}
         </div>
       </div>
-      <ul
-        className={
-          !nav
-            ? "hidden animate-left margin-right"
-            : "absolute text-center bg-zinc-200 w-[100vw] h-[110vh] px-8 top-0 left-0 z-[-1]"
-        }
+      <motion.div
+        initial={false}
+        variants={menuVariants}
+        animate={isOpen ? "opened" : "closed"}
+        className="menu"
       >
-        <div className="absolute w-full left-0 navbar-li">
-          <LinkS
-            to="gameplay-section"
-            smooth={true}
-            duration={1000}
-            spy={true}
-            exact="true"
-            offset={0}
-            onClick={handleClick}
-          >
-            <li className="border-b-2 border-zinc-300 w-full">Gameplay</li>
-          </LinkS>
-          <LinkS
-            to="ecosystem-section"
-            smooth={true}
-            duration={1000}
-            spy={true}
-            exact="true"
-            offset={0}
-            onClick={handleClick}
-          >
-            <li className="border-b-2 border-zinc-300 w-full">Ecosystem</li>
-          </LinkS>
-          <LinkS
-            to="nft-section"
-            smooth={true}
-            duration={1000}
-            spy={true}
-            exact="true"
-            offset={0}
-            onClick={handleClick}
-          >
-            <li className="border-b-2 border-zinc-300 w-full">NFTS</li>
-          </LinkS>
+        <ul>
+          <div className="absolute w-full left-0 navbar-li">
+            <LinkS
+              to="gameplay-section"
+              smooth={true}
+              duration={1000}
+              spy={true}
+              exact="true"
+              offset={0}
+              onClick={() => setIsOpen((state) => !state) || handleClick()}
+            >
+              <li className="border-b-2 border-zinc-300 text-center w-full">Gameplay</li>
+            </LinkS>
+            <LinkS
+              to="ecosystem-section"
+              smooth={true}
+              duration={1000}
+              spy={true}
+              exact="true"
+              offset={0}
+              onClick={() => setIsOpen((state) => !state) || handleClick()}
+            >
+              <li className="border-b-2 border-zinc-300 text-center w-full">Ecosystem</li>
+            </LinkS>
+            <LinkS
+              to="nft-section"
+              smooth={true}
+              duration={1000}
+              spy={true}
+              exact="true"
+              offset={0}
+              onClick={() => setIsOpen((state) => !state) || handleClick()}
+            >
+              <li className="border-b-2 border-zinc-300 text-center w-full">NFTS</li>
+            </LinkS>
 
-          <LinkS
-            to="roadmap-section"
-            smooth={true}
-            duration={1000}
-            spy={true}
-            exact="true"
-            offset={0}
-            onClick={handleClick}
-          >
-            <li className="border-b-2 border-zinc-300 w-full">Roadmap</li>
-          </LinkS>
-          <LinkS
-            to="tokenomics-section"
-            smooth={true}
-            duration={1000}
-            spy={true}
-            exact="true"
-            offset={0}
-            onClick={handleClick}
-          >
-            <li className="border-b-2 border-zinc-300 w-full">Tokenomics</li>
-          </LinkS>
-          <LinkS
-            to="partner-section"
-            smooth={true}
-            duration={1000}
-            spy={true}
-            exact="true"
-            offset={0}
-            onClick={handleClick}
-          >
-            <li className="border-b-2 border-zinc-300 w-full">Partners</li>
-          </LinkS>
-        </div>
-      </ul>
+            <LinkS
+              to="roadmap-section"
+              smooth={true}
+              duration={1000}
+              spy={true}
+              exact="true"
+              offset={0}
+              onClick={() => setIsOpen((state) => !state) || handleClick()}
+            >
+              <li className="border-b-2 border-zinc-300 text-center w-full">Roadmap</li>
+            </LinkS>
+            <LinkS
+              to="tokenomics-section"
+              smooth={true}
+              duration={1000}
+              spy={true}
+              exact="true"
+              offset={0}
+              onClick={() => setIsOpen((state) => !state) || handleClick()}
+            >
+              <li className="border-b-2 border-zinc-300 text-center w-full">Tokenomics</li>
+            </LinkS>
+            <LinkS
+              to="partner-section"
+              smooth={true}
+              duration={1000}
+              spy={true}
+              exact="true"
+              offset={0}
+              onClick={() => setIsOpen((state) => !state) || handleClick()}
+            >
+              <li className="border-b-2 border-zinc-300 text-center w-full">Partners</li>
+            </LinkS>
+          </div>
+        </ul>
+      </motion.div>
     </div>
   );
 };

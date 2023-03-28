@@ -191,3 +191,16 @@ body {
   );
 }
 }
+
+.menu{
+  background: white;
+  height: 105vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: -1;
+}
